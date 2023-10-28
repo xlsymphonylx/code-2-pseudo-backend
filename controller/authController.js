@@ -10,7 +10,7 @@ const generateAuthToken = (userId, roleId) => {
 
 const authController = {
   register: async (req, res) => {
-    const { username, password, roleName } = req.body;
+    const { username, password } = req.body;
 
     try {
       const existingUser = await User.findOne({ where: { username } });
@@ -18,7 +18,7 @@ const authController = {
         return res.status(400).json({ error: "Username already exists" });
       }
 
-      const role = await Role.findOne({ where: { name: roleName } });
+      const role = await Role.findOne({ where: { name: "free_client" } });
       if (!role) {
         return res.status(400).json({ error: "Invalid role" });
       }
@@ -41,7 +41,6 @@ const authController = {
   },
 
   login: async (req, res) => {
-
     const { username, password } = req.body;
 
     try {
@@ -67,8 +66,6 @@ const authController = {
       res.status(500).json({ error: "Internal Server Error" });
     }
   },
-
- 
 };
 
 module.exports = authController;
