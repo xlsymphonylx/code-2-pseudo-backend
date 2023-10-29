@@ -1,9 +1,9 @@
 {
   "Se Ejecuta Si": "if",
   "Inicio": "{",
-  "\\(": "( ",
-  "\\)": " )",
-  "Fin": "{",
+  "\\(": "(",
+  "\\)": ")",
+  "Fin": "}",
   "Sino": "else",
   "Funcion Flecha": "=>",
   "Menos": "-",
