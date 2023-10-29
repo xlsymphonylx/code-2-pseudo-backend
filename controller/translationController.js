@@ -1,7 +1,7 @@
 const Course = require("../models/Course");
 const Role = require("../models/Role");
 const { User, SavedTranslation } = require("../models");
-const tokensJsonJs = require("../utils/tokensJs.json");
+const tokensJsonJs = require("../utils/tokensJS.json");
 const tokensJsonPseudo = require("../utils/tokensPseudo.json");
 const jwt = require("jsonwebtoken");
 
