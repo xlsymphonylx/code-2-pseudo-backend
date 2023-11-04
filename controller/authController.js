@@ -1,7 +1,6 @@
 const { User, Role } = require("../models");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-
 const generateAuthToken = (userId, roleId) => {
   return jwt.sign({ userId, roleId }, process.env.JWT_SECRET, {
     expiresIn: "12h",
@@ -10,8 +9,8 @@ const generateAuthToken = (userId, roleId) => {
 
 const authController = {
   register: async (req, res) => {
-    const { username, password } = req.body;
-
+    const { username, password, email, first_name, last_name } = req.body;
+    const profile_img = req.file ? req.file.path : 'uploads/default_user.jpg';
     try {
       const existingUser = await User.findOne({ where: { username } });
       if (existingUser) {
@@ -22,13 +21,16 @@ const authController = {
       if (!role) {
         return res.status(400).json({ error: "Invalid role" });
       }
-
       const hashedPassword = await bcrypt.hash(password, 10);
 
       const user = await User.create({
         username,
         password: hashedPassword,
         roleId: role.id,
+        profile_img,
+        email,
+        first_name,
+        last_name,
       });
 
       const token = generateAuthToken(user.id, role.id);
@@ -41,11 +43,11 @@ const authController = {
   },
 
   login: async (req, res) => {
-    const { username, password } = req.body;
+    const { email, password } = req.body;
 
     try {
       const user = await User.findOne({
-        where: { username },
+        where: { email },
         include: [{ model: Role, attributes: ["name"] }],
       });
 

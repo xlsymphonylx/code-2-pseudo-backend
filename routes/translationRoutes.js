@@ -4,11 +4,14 @@ const translationController = require("../controller/translationController");
 
 // Define routes for translationController
 
-router.post("/translateJS", translationController.translateJS);
-router.post("/translatePseudo", translationController.translatePseudo);
+router.post("/translateCode", translationController.translateCode);
 router.post("/saveCourse", translationController.saveCourse);
 router.put("/editCourse/:courseId", translationController.editCourse);
 router.get("/getAllCourses", translationController.getAllCourses);
+router.get(
+  "/getAllTranslationTypes",
+  translationController.getAllTranslationTypes
+);
 router.get("/getOfficialCourses", translationController.getOfficialCourses);
 router.get(
   "/getNonOfficialCourses",

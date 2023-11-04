@@ -18,6 +18,22 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      email: {
+        type: Sequelize.STRING, // Add email field
+        allowNull: false, // Modify allowNull as per your requirements
+      },
+      first_name: {
+        type: Sequelize.STRING, // Add first_name field
+        allowNull: true, // Modify allowNull as per your requirements
+      },
+      last_name: {
+        type: Sequelize.STRING, // Add last_name field
+        allowNull: true, // Modify allowNull as per your requirements
+      },
+      profile_img: {
+        type: Sequelize.STRING, // Add profile_img field
+        allowNull: true, // Modify allowNull as per your requirements
+      },
       roleId: {
         type: Sequelize.UUID,
         allowNull: false,

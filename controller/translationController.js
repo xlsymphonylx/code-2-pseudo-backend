@@ -1,41 +1,41 @@
 const Course = require("../models/Course");
 const Role = require("../models/Role");
-const { User, SavedTranslation } = require("../models");
-const tokensJsonJs = require("../utils/tokensJS.json");
-const tokensJsonPseudo = require("../utils/tokensPseudo.json");
+const { User, SavedTranslation, TranslationType } = require("../models");
+
 const jwt = require("jsonwebtoken");
 
 const translationController = {
-  translateJS: (req, res) => {
-    const code = req.body.code;
+  translateCode: async (req, res) => {
+    const { code, translationTypeId, translationState } = req.body;
 
-    if (!code) {
+    if (!code || !translationTypeId || !translationState) {
       return res.sendStatus(403);
     }
 
-    let newCode = code;
-    for (let key of Object.keys(tokensJsonJs)) {
-      const currentRegex = new RegExp(key, "g");
-      newCode = newCode.replace(currentRegex, tokensJsonJs[key]);
+    try {
+      // Assuming you have a method to fetch the TranslationType by ID
+      const translationType = await TranslationType.findByPk(translationTypeId);
+
+      if (!translationType) {
+        return res.sendStatus(404);
+      }
+
+      const tokens =
+        translationState === "code-to-pseudo"
+          ? require(`../utils/${translationType.filePath}`)
+          : require(`../utils/${translationType.reversePath}`);
+
+      let newCode = code;
+      for (let key of Object.keys(tokens)) {
+        const currentRegex = new RegExp(key, "g");
+        newCode = newCode.replace(currentRegex, tokens[key]);
+      }
+
+      res.send({ translatedCode: newCode });
+    } catch (error) {
+      console.error(error);
+      res.sendStatus(500);
     }
-
-    res.send({ translatedCode: newCode });
-  },
-
-  translatePseudo: (req, res) => {
-    const code = req.body.code;
-
-    if (!code) {
-      return res.sendStatus(403);
-    }
-
-    let newCode = code;
-    for (let key of Object.keys(tokensJsonPseudo)) {
-      const currentRegex = new RegExp(key, "g");
-      newCode = newCode.replace(currentRegex, tokensJsonPseudo[key]);
-    }
-
-    res.send({ translatedCode: newCode });
   },
 
   saveCourse: async (req, res) => {
@@ -113,13 +113,34 @@ const translationController = {
       res.status(500).json({ error: "Internal Server Error" });
     }
   },
+  getAllTranslationTypes: async (req, res) => {
+    try {
+      const types = await TranslationType.findAll();
+
+      res.json({ types });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+  },
   getAllCourses: async (req, res) => {
     try {
       const courses = await Course.findAll({
         include: [
           {
             model: SavedTranslation,
-            attributes: ["originalMessage", "translationType", "timeLogs"],
+            attributes: [
+              "originalMessage",
+              "translationType",
+              "timeLogs",
+              "translationTypeId",
+            ],
+            include: [
+              {
+                model: TranslationType,
+                attributes: ["title"],
+              },
+            ],
           },
         ],
       });
@@ -137,7 +158,18 @@ const translationController = {
         include: [
           {
             model: SavedTranslation,
-            attributes: ["originalMessage", "translationType", "timeLogs"],
+            attributes: [
+              "originalMessage",
+              "translationType",
+              "timeLogs",
+              "translationTypeId",
+            ],
+            include: [
+              {
+                model: TranslationType,
+                attributes: ["title"],
+              },
+            ],
           },
         ],
       });
@@ -161,8 +193,19 @@ const translationController = {
         include: [
           {
             model: SavedTranslation,
-            attributes: ["originalMessage", "translationType", "timeLogs"],
+            attributes: [
+              "originalMessage",
+              "translationType",
+              "timeLogs",
+              "translationTypeId",
+            ],
             where: { userId: user.id },
+            include: [
+              {
+                model: TranslationType,
+                attributes: ["title"],
+              },
+            ],
           },
         ],
       });

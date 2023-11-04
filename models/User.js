@@ -18,6 +18,23 @@ const User = sequelize.define("User", {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  profile_img: {
+    type: DataTypes.STRING, // Assuming the profile image path is a string
+    allowNull: true, // Set to false if it's required
+  },
+  email: {
+    type: DataTypes.STRING,
+    allowNull: false, // Adjust as needed
+    unique: true,
+  },
+  first_name: {
+    type: DataTypes.STRING,
+    allowNull: true, // Set to false if it's required
+  },
+  last_name: {
+    type: DataTypes.STRING,
+    allowNull: true, // Set to false if it's required
+  },
 });
 
 User.belongsTo(Role, { foreignKey: "roleId" });

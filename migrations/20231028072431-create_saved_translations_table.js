@@ -38,6 +38,29 @@ module.exports = {
         type: Sequelize.DATE,
       },
     });
+    await queryInterface.addColumn("SavedTranslations", "translationTypeId", {
+      type: Sequelize.INTEGER, // Assuming 'TranslationTypes' has an integer primary key
+      allowNull: false,
+      references: {
+        model: "TranslationTypes",
+        key: "id",
+      },
+      onUpdate: "CASCADE",
+      onDelete: "CASCADE",
+    });
+
+    await queryInterface.addConstraint("SavedTranslations", {
+      fields: ["translationTypeId"],
+      type: "foreign key",
+      name: "fk_translation_type_id_saved_translations",
+      references: {
+        table: "TranslationTypes",
+        field: "id",
+      },
+      onDelete: "CASCADE",
+      onUpdate: "CASCADE",
+    });
+
     await queryInterface.addConstraint("SavedTranslations", {
       fields: ["userId"],
       type: "foreign key",

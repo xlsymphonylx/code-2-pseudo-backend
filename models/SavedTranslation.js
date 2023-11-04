@@ -1,7 +1,7 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/database");
 const Course = require("./Course");
-
+const TranslationType = require("./TranslationType"); // Add this line to import the TranslationType model
 const SavedTranslation = sequelize.define("SavedTranslations", {
   id: {
     type: DataTypes.UUID,
@@ -20,10 +20,17 @@ const SavedTranslation = sequelize.define("SavedTranslations", {
     type: DataTypes.UUID, // Assuming userId is stored as UUID
     allowNull: false,
   },
+  translationTypeId: {
+    type: DataTypes.INTEGER, // Assuming translationTypeId is stored as UUID
+    allowNull: false,
+  },
   timeLogs: {
     type: DataTypes.DATE,
     defaultValue: DataTypes.NOW,
   },
 });
-Course.belongsTo(SavedTranslation, { foreignKey: 'savedTranslationId' });
+SavedTranslation.belongsTo(TranslationType, {
+  foreignKey: "translationTypeId",
+});
+Course.belongsTo(SavedTranslation, { foreignKey: "savedTranslationId" });
 module.exports = SavedTranslation;

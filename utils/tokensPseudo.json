@@ -28,5 +28,13 @@
   "Espacio Vacio": "''",
   "Saliendo de bloque de codigo": "break",
   "Función": "function",
-  "Mostrar Por Consola": "console.log"
+  "Mostrar Por Consola": "console.log",
+  "Devuelve": "return",
+  "ObtenerElementoPorId": "document.getElementById",
+  "SeleccionarElemento": "document.querySelector",
+  "ContenidoHtml": "element.innerHTML",
+  "EstiloElemento": "element.style",
+  "AgregarEvento": "element.addEventListener",
+  "EliminarHijo": "element.removeChild",
+  "EstablecerAtributo": "element.setAttribute"
 }

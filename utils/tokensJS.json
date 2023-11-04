@@ -29,7 +29,14 @@
   "''": "Espacio Vacio ",
   "\"\"": "Espacio Vacio ",
   "break": "\nSaliendo de bloque de codigo ",
-  "\\;": "\n",
   "function": "Función",
-  "console.log": "Mostrar Por Consola "
+  "console.log": "Mostrar Por Consola",
+  "return": "Devuelve",
+  "document.getElementById": "ObtenerElementoPorId",
+  "document.querySelector": "SeleccionarElemento",
+  "element.innerHTML": "ContenidoHtml",
+  "element.style": "EstiloElemento",
+  "element.addEventListener": "AgregarEvento",
+  "element.removeChild": "EliminarHijo",
+  "element.setAttribute": "EstablecerAtributo"
 }
