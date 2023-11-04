@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "reset-db": "npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate",
-    "seed-db": "node seeders/seed-users-roles.js && node seeders/seedTranslationTypes.js && node seeders/seedSavedTranslations.js",
+    "seed-db": "node seeders/seed-users-roles.js && node seeders/seedTranslationTypes.js && node seeders/seedSavedTranslations.js && node seeders/seedSavedTranslationsPhp.js && node seeders/seedSavedTranslationsSql.js",
     "reset-seed-db": "npm run reset-db && npm run seed-db"
   },
   "keywords": [],

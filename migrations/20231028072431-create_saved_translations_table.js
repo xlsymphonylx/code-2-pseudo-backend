@@ -14,7 +14,7 @@ module.exports = {
         allowNull: false,
       },
       translationType: {
-        type: Sequelize.ENUM("pseudo-to-js", "js-to-pseudo"),
+        type: Sequelize.ENUM("pseudo-to-js", "code-to-pseudo"),
         allowNull: false,
       },
       userId: {

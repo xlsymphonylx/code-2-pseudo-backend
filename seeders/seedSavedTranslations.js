@@ -15,14 +15,14 @@ const seedSavedTranslations = async () => {
     const savedTranslationsJs = [
       {
         originalMessage: "console.log('Hola Mundo')",
-        translationType: "js-to-pseudo",
+        translationType: "code-to-pseudo",
         translationTypeId: 1,
         userId: randomUserId ? randomUserId.id : null, // Assuming a valid user ID
       },
       {
         originalMessage:
           "let nombre = 'Juan'\n let edad = 30\n let esEstudiante = true",
-        translationType: "js-to-pseudo",
+        translationType: "code-to-pseudo",
         translationTypeId: 1,
 
         userId: randomUserId ? randomUserId.id : null, // Assuming a valid user ID
@@ -30,7 +30,7 @@ const seedSavedTranslations = async () => {
       {
         originalMessage:
           "let x = 10;\n let y = 5;\nlet suma = x + y;\nlet resta = x - y;\nlet multiplicacion = x * y;\nlet division = x / y;",
-        translationType: "js-to-pseudo",
+        translationType: "code-to-pseudo",
         translationTypeId: 1,
 
         userId: randomUserId ? randomUserId.id : null, // Assuming a valid user ID
@@ -38,35 +38,35 @@ const seedSavedTranslations = async () => {
       {
         originalMessage:
           "let edad = 18;\nif (edad >= 18) {\nconsole.log('Eres mayor de edad');\n} else {\n console.log('Eres menor de edad');}",
-        translationType: "js-to-pseudo",
+        translationType: "code-to-pseudo",
         translationTypeId: 1,
         userId: randomUserId ? randomUserId.id : null, // Assuming a valid user ID
       },
       {
         originalMessage:
           "for (let i = 0; i < 5; i++) {\nconsole.log('Iteración ' + i);\n}",
-        translationType: "js-to-pseudo",
+        translationType: "code-to-pseudo",
         translationTypeId: 1,
         userId: randomUserId ? randomUserId.id : null, // Assuming a valid user ID
       },
       {
         originalMessage:
           "function saludar(nombre) {\n  console.log('¡Hola, ' + nombre + '!');\n}\n\nsaludar('María');",
-        translationType: "js-to-pseudo",
+        translationType: "code-to-pseudo",
         translationTypeId: 1,
         userId: randomUserId ? randomUserId.id : null,
       },
       {
         originalMessage:
           "let colores = ['rojo', 'verde', 'azul'];\nconsole.log(colores[0]); // Muestra 'rojo'",
-        translationType: "js-to-pseudo",
+        translationType: "code-to-pseudo",
         translationTypeId: 1,
         userId: randomUserId ? randomUserId.id : null,
       },
       {
         originalMessage:
           "let persona = {\n  nombre: 'Juan',\n  edad: 30,\n  esEstudiante: true\n};\n\nconsole.log(persona.nombre); // Muestra 'Juan'",
-        translationType: "js-to-pseudo",
+        translationType: "code-to-pseudo",
         translationTypeId: 1,
         userId: randomUserId ? randomUserId.id : null,
       },
@@ -146,7 +146,7 @@ const seedSavedTranslations = async () => {
         savedTranslationId: 0,
       },
     ];
-    
+
     for (let i = 0; i < savedTranslationsJs.length; i++) {
       const savedT = await SavedTranslation.create(savedTranslationsJs[i]);
       jsCourses[i].savedTranslationId = savedT.id;
