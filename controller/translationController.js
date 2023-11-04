@@ -45,11 +45,12 @@ const translationController = {
       const { name, description, availableDate, official, translation } =
         req.body;
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      const { originalMessage, translationType } = translation;
-
+      const { originalMessage, translationType, translationTypeId } =
+        translation;
       const savedTranslation = await SavedTranslation.create({
         originalMessage,
         translationType,
+        translationTypeId,
         userId: decoded.userId, // Assuming user data is stored in req.user
       });
 
